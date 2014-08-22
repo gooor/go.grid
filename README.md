@@ -1,4 +1,5 @@
 go.grid
 =======
 
-Angular grid directive
+Grid directive for turning data into scrollable, filterable and sortable table.
+
