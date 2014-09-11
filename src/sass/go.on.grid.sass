@@ -1,0 +1,135 @@
+$border-color: #ddd !default
+$brand-info: #ddd !default
+$brand-primary: #ddd !default
+
+.go-grid-table
+  position: absolute
+  top: 0
+  left: 0
+  bottom: 0
+  right: 0
+  overflow: hidden
+
+  & .go-grid-filters
+    border-bottom: 1px solid $border-color
+    padding: 4px 4px
+    min-height: 36px
+    position: relative
+    & .go-grid-column-list
+      position: absolute
+      right: 4px
+      top: 4px
+
+
+  & .go-grid-table-header
+    overflow: hidden
+    & th
+      border-bottom: 2px solid #444
+      position: relative
+      &.sortable
+        cursor: pointer
+        & > div
+          & > span.header-label
+            padding: 4px 0px 4px 6px
+            margin-right: 24px
+            display: block
+          & .sorting-arrows
+            position: absolute
+            top: 50%
+            bottom: 0
+            right: 10px
+            line-height: 1px
+            padding: 0
+      & > div
+        overflow: hidden
+
+
+
+
+        & .ui-resizable-handle
+          position: absolute
+          top: 0
+          bottom: 0
+          right: 0
+          width: 10px
+          overflow: hidden
+          margin: 0
+          cursor: e-resize
+          &:after
+            top: 0
+            left: 50%
+            bottom: 0
+            width: 2px
+            content: ''
+            display: block
+            border-left: 1px solid #ddd
+            position: absolute
+
+  & .go-grid-table-body
+    position: absolute
+    bottom: 0
+    right: 0
+    left: 0
+    overflow: auto
+    //& > div
+    //  overflow: hidden
+
+    & tr
+
+      &:nth-child(odd)
+        & td
+          background: #f5f5f5
+
+      &:hover //.highlighted
+        color: #333
+        & td
+          background: #eee
+          border-bottom: 1px solid #ddd
+          & a
+            color: #333
+
+      & td
+        border-bottom: 1px solid $border-color
+        padding: 0
+        & > div
+          overflow: hidden
+          white-space: nowrap
+          padding: 4px 6px
+      &.selected //, &:nth-child(odd).selected
+        color: #fff
+        & td
+          background: $brand-info
+          border-bottom: 1px solid darken($brand-info, 5%)
+          & a
+            color: #fff
+        &:nth-child(odd) td
+          background: darken($brand-info, 3%)
+      &.active //, &:nth-child(odd).active
+        color: #fff
+        & td
+          background: $brand-primary
+          border-bottom: 1px solid darken($brand-primary, 5%)
+          & a
+            color: #fff
+        &:nth-child(odd) td
+          background: darken($brand-primary, 3%)
+
+.column-config
+  position: relative
+  & a
+    padding: 3px 45px 3px 20px
+    color: #333
+    display: block
+    white-space: nowrap
+    text-decoration: none
+    &:hover
+      background: darken(#fff, 5%)
+
+  & .sort-icons
+    position: absolute
+    top: 3px
+    right: 0
+    width: 40px
+    & .fa
+      cursor: pointer
+      padding: 0 3px
