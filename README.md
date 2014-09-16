@@ -17,6 +17,10 @@ It's far from complete. Number of things must be done.
 - Excel export
 - column status kept in localStorage
 
+# Installing
+
+Use bower if you like or just download builds (js and css)
+    > bower install go.grid
 
 # Building
 
