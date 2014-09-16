@@ -227,6 +227,7 @@ angular.module('go.grid').directive('goGrid', ['$compile', '$parse', '$timeout',
         ws['!cols'] = col_ref
         row_index = 1
         max_col = 0
+        moment ||= null
         XLSX.SSF._table[50] ||= 'YYYY/MM/DD'
         for item, i in scope.source
           column_index = 0
@@ -238,7 +239,7 @@ angular.module('go.grid').directive('goGrid', ['$compile', '$parse', '$timeout',
 
             if $.isNumeric cell.v
               cell.t = 'n'
-            else if moment(item[col.field]).isValid() and item[col.field]?
+            else if moment and moment(item[col.field]).isValid() and item[col.field]?
               cell.t = 'n'
               cell.z = XLSX.SSF._table[50]
               cell.v = (moment(item[col.field]).toDate() - new Date(Date.UTC(1899, 11, 30))) / (24 * 60 * 60 * 1000)

@@ -25,6 +25,7 @@
     "angularLocalStorage": "~0.1.7",
     "angular-cookies": "~1.2.24",
     "font-awesome": "~4.2.0",
-    "jquery-ui": "~1.11.1"
+    "jquery-ui": "~1.11.1",
+    "js-xlsx": "~0.7.10"
   }
 }

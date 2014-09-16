@@ -249,7 +249,7 @@
                   };
                   if ($.isNumeric(cell.v)) {
                     cell.t = 'n';
-                  } else if (moment(item[col.field]).isValid() && (item[col.field] != null)) {
+                  } else if ((typeof moment !== "undefined" && moment !== null) && moment(item[col.field]).isValid() && (item[col.field] != null)) {
                     cell.t = 'n';
                     cell.z = XLSX.SSF._table[50];
                     cell.v = (moment(item[col.field]).toDate() - new Date(Date.UTC(1899, 11, 30))) / (24 * 60 * 60 * 1000);
