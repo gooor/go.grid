@@ -9,8 +9,32 @@
     ...
   </div>
 ###
+
 angular.module('go.grid.filters',[])
-angular.module('go.grid.controllers',[]).controller 'goGridController', ['$scope',($scope)->
+angular.module('go.grid.controllers',[])
+angular.module('go.grid', ['go.grid.controllers', 'go.grid.filters','angularLocalStorage'])
+angular.module('go.grid').locales =
+  en:
+    reset_settings: 'Reset settings'
+    columns: 'Columns'
+    checkbox_column: 'Checkbox'
+  pl:
+    reset_settings: 'Reset ustawień'
+    columns: 'Kolumny'
+    checkbox_column: 'Operacje grupowe'
+
+angular.module('go.grid').t = (code)->
+  table = angular.module('go.grid').locales[angular.module('go.grid').locale || 'en']
+  if table and table[code]
+    table[code]
+  else
+    code
+angular.module('go.grid.filters').filter 'translate', ->
+  (text)->
+    angular.module('go.grid').t(text)
+
+
+angular.module('go.grid.controllers').controller 'goGridController', ['$scope',($scope)->
   $scope.columnsDef = []
   $scope.columns = []
 
@@ -58,15 +82,34 @@ angular.module('go.grid.controllers',[]).controller 'goGridController', ['$scope
     $scope.sort()
     $scope.infinite() if $scope.viewParams.infinite
 
+  compareFn = (item, sortBy)->
+    if sortBy and item[sortBy]
+      if $.isNumeric(item[sortBy])
+        ('0000000000000000000000000' + item[sortBy]).slice(-24)
+      else
+        item[sortBy].toLowerCase() #.removeAccents(1)
+    else
+      ''
+
   $scope.sort = ->
     list = $scope.filtered
     if $scope.viewParams.sort_by.length
-      list.sortBy = $scope.viewParams.sort_by[0].column
-      list = list.sort()
+      sortBy = $scope.viewParams.sort_by[0].column
+      list = list.sort((a,b)->
+        ac = compareFn(a, sortBy)
+        bc = compareFn(b, sortBy)
+        if ac > bc
+          1
+        else if ac < bc
+          -1
+        else
+          0
+      )
       if $scope.viewParams.sort_by[0].direction < 0
         $scope.filtered = list.reverse()
       else
         $scope.filtered = list
+    true
 
 
   $scope.infinite = ->
@@ -85,7 +128,9 @@ angular.module('go.grid.controllers',[]).controller 'goGridController', ['$scope
 
 ]
 
-angular.module('go.grid', ['go.grid.controllers', 'go.grid.filters']).directive('goGrid', ['$compile', '$parse', '$timeout','storage', '$interpolate', ($compile, $parse, $timeout,storage, $interpolate)->
+
+
+angular.module('go.grid').directive('goGrid', ['$compile', '$parse', '$timeout','storage', '$interpolate', ($compile, $parse, $timeout,storage, $interpolate)->
   restrict: 'A'
   scope: true
 
@@ -315,7 +360,7 @@ angular.module('go.grid', ['go.grid.controllers', 'go.grid.filters']).directive(
       sort: attrs.sort
       sortable: attrs.sort?
       visible: not attrs.hidden?
-      resizable: attrs.resize?
+      resizable: attrs.resize? and $().resizablee
       template: element.html()
       right: attrs.right?
     if attrs.sortDefault?
@@ -377,6 +422,11 @@ angular.module('go.grid', ['go.grid.controllers', 'go.grid.filters']).directive(
 ])
 
 .directive('columnHeader',['$compile',($compile)->
+  findBy = (ar, field, value)->
+    [a] = ar.filter (i)->
+      i[field] is value
+    a || false
+
   restrict: 'A'
   templateUrl: 'grid_column.html'
   link: (scope, element, attrs)->
@@ -413,7 +463,7 @@ angular.module('go.grid', ['go.grid.controllers', 'go.grid.filters']).directive(
         $(element).on 'click', (e)->
           scope.startMeasure()
           scope.$apply ->
-            existing = scope.viewParams.sort_by.findBy 'column', sort_by
+            existing = findBy scope.viewParams.sort_by,'column', sort_by
             if existing
               direction = existing.direction
             else
@@ -450,7 +500,7 @@ angular.module('go.grid', ['go.grid.controllers', 'go.grid.filters']).directive(
       field: attrs.field
       visible: not attrs.hidden?
       width: attrs.width
-      header: 'Operacje grupowe'
+      header: angular.module('go.grid').t('checkbox_column')
       type: 'checkbox'
       name: attrs.name || 'checkbox'
       template: '<input type="checkbox" class="checkbox" ng-model="item.' + attrs.field + '" />'
@@ -587,8 +637,12 @@ angular.module('go.grid', ['go.grid.controllers', 'go.grid.filters']).directive(
         "<span class=\"fa fa-cogs\"></span>"+
       "</button>"+
       "<ul class=\"dropdown-menu pull-right\" role=\"menu\">"+
-        "<li><a href=\"javascript:void(0)\" ng-click=\"resetStorage()\">Reset ustawień</a></li>"+
-        "<li class=\"dropdown-header\"><strong>Kolumny</strong></li>"+
+        "<li><a href=\"javascript:void(0)\" ng-click=\"resetStorage()\">" +
+        '{{\'reset_settings\' | translate }}' +
+        "</a></li>"+
+        "<li class=\"dropdown-header\"><strong>" +
+        '{{\'columns\' | translate }}' +
+        "</strong></li>"+
         "<li ng-repeat=\"(index, column) in columns\">"+
           "<column-config>"+
           "</column-config>"+
