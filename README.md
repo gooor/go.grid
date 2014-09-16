@@ -2,7 +2,10 @@
 
 Grid directive for turning data into scrollable, filterable and sortable table.
 
+Go to **[gooor.github.io](http://gooor.github.io)** for example usage.
+
 It's far from complete. Number of things must be done.
+
 
 
 # Features
