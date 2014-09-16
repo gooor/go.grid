@@ -1,0 +1,30 @@
+{
+  "name": "go.grid",
+  "version": "0.1.0",
+  "homepage": "https://github.com/gooor/go.grid",
+  "authors": [
+    "gooor <marcin.gorczynski@gmail.com>"
+  ],
+  "description": "Angular directive for creating advanced datatables",
+  "keywords": [
+    "angular",
+    "directive",
+    "table"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.24",
+    "bootstrap": "~3.2.0",
+    "angularLocalStorage": "~0.1.7",
+    "angular-cookies": "~1.2.24",
+    "font-awesome": "~4.2.0",
+    "jquery-ui": "~1.11.1"
+  }
+}

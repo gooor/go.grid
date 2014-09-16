@@ -1,0 +1,146 @@
+/* line 5, ../src/sass/go.grid.sass */
+.go-grid-table {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden; }
+  /* line 13, ../src/sass/go.grid.sass */
+  .go-grid-table .go-grid-filters {
+    border-bottom: 1px solid #ddd;
+    padding: 4px 4px;
+    min-height: 36px;
+    position: relative; }
+    /* line 18, ../src/sass/go.grid.sass */
+    .go-grid-table .go-grid-filters .go-grid-column-list {
+      position: absolute;
+      right: 4px;
+      top: 4px; }
+  /* line 24, ../src/sass/go.grid.sass */
+  .go-grid-table .go-grid-table-header {
+    overflow: hidden; }
+    /* line 26, ../src/sass/go.grid.sass */
+    .go-grid-table .go-grid-table-header th {
+      border-bottom: 2px solid #444;
+      position: relative; }
+      /* line 29, ../src/sass/go.grid.sass */
+      .go-grid-table .go-grid-table-header th.sortable {
+        cursor: pointer; }
+        /* line 32, ../src/sass/go.grid.sass */
+        .go-grid-table .go-grid-table-header th.sortable > div > span.header-label {
+          padding: 4px 0px 4px 6px;
+          margin-right: 24px;
+          display: block; }
+        /* line 36, ../src/sass/go.grid.sass */
+        .go-grid-table .go-grid-table-header th.sortable > div .sorting-arrows {
+          position: absolute;
+          top: 50%;
+          bottom: 0;
+          right: 10px;
+          line-height: 1px;
+          padding: 0; }
+      /* line 43, ../src/sass/go.grid.sass */
+      .go-grid-table .go-grid-table-header th > div {
+        overflow: hidden; }
+        /* line 49, ../src/sass/go.grid.sass */
+        .go-grid-table .go-grid-table-header th > div .ui-resizable-handle {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          right: 0;
+          width: 10px;
+          overflow: hidden;
+          margin: 0;
+          cursor: e-resize; }
+          /* line 58, ../src/sass/go.grid.sass */
+          .go-grid-table .go-grid-table-header th > div .ui-resizable-handle:after {
+            top: 0;
+            left: 50%;
+            bottom: 0;
+            width: 2px;
+            content: "";
+            display: block;
+            border-left: 1px solid #ddd;
+            position: absolute; }
+  /* line 68, ../src/sass/go.grid.sass */
+  .go-grid-table .go-grid-table-body {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    overflow: auto; }
+    /* line 80, ../src/sass/go.grid.sass */
+    .go-grid-table .go-grid-table-body tr:nth-child(odd) td {
+      background: #f5f5f5; }
+    /* line 83, ../src/sass/go.grid.sass */
+    .go-grid-table .go-grid-table-body tr:hover {
+      color: #333; }
+      /* line 85, ../src/sass/go.grid.sass */
+      .go-grid-table .go-grid-table-body tr:hover td {
+        background: #eee;
+        border-bottom: 1px solid #ddd; }
+        /* line 88, ../src/sass/go.grid.sass */
+        .go-grid-table .go-grid-table-body tr:hover td a {
+          color: #333; }
+    /* line 91, ../src/sass/go.grid.sass */
+    .go-grid-table .go-grid-table-body tr td {
+      border-bottom: 1px solid #ddd;
+      padding: 0; }
+      /* line 94, ../src/sass/go.grid.sass */
+      .go-grid-table .go-grid-table-body tr td > div {
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 4px 6px; }
+    /* line 98, ../src/sass/go.grid.sass */
+    .go-grid-table .go-grid-table-body tr.selected {
+      color: #fff; }
+      /* line 100, ../src/sass/go.grid.sass */
+      .go-grid-table .go-grid-table-body tr.selected td {
+        background: #5bc0de;
+        border-bottom: 1px solid #46b8da; }
+        /* line 103, ../src/sass/go.grid.sass */
+        .go-grid-table .go-grid-table-body tr.selected td a {
+          color: #fff; }
+      /* line 105, ../src/sass/go.grid.sass */
+      .go-grid-table .go-grid-table-body tr.selected:nth-child(odd) td {
+        background: #4ebbdb; }
+    /* line 107, ../src/sass/go.grid.sass */
+    .go-grid-table .go-grid-table-body tr.active {
+      color: #fff; }
+      /* line 109, ../src/sass/go.grid.sass */
+      .go-grid-table .go-grid-table-body tr.active td {
+        background: #428bca;
+        border-bottom: 1px solid #357ebd; }
+        /* line 112, ../src/sass/go.grid.sass */
+        .go-grid-table .go-grid-table-body tr.active td a {
+          color: #fff; }
+      /* line 114, ../src/sass/go.grid.sass */
+      .go-grid-table .go-grid-table-body tr.active:nth-child(odd) td {
+        background: #3784c5; }
+
+/* line 117, ../src/sass/go.grid.sass */
+.column-config {
+  position: relative; }
+  /* line 119, ../src/sass/go.grid.sass */
+  .column-config a {
+    padding: 3px 45px 3px 20px;
+    color: #333;
+    display: block;
+    white-space: nowrap;
+    text-decoration: none; }
+    /* line 125, ../src/sass/go.grid.sass */
+    .column-config a:hover {
+      background: #f2f2f2; }
+  /* line 128, ../src/sass/go.grid.sass */
+  .column-config .sort-icons {
+    position: absolute;
+    top: 3px;
+    right: 0;
+    width: 40px; }
+    /* line 133, ../src/sass/go.grid.sass */
+    .column-config .sort-icons .fa {
+      cursor: pointer;
+      padding: 0 3px; }
+
+/*# sourceMappingURL=go.grid.css.map */
