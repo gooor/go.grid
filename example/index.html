@@ -1,57 +1,61 @@
 <!DOCTYPE html>
 <html ng-app="sampleApp">
+
 <head>
-    <meta charset="utf-8">
-    <title>GO.GRID Example</title>
-    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css"/>
-    <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css" type="text/css"/>
-    <link rel="stylesheet" href="../build/go.grid.css" type="text/css"/>
-    <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="../bower_components/angular/angular.js"></script>
-    <script type="text/javascript" src="../bower_components/angularLocalStorage/src/angularLocalStorage.js"></script>
-    <script type="text/javascript" src="../bower_components/angular-cookies/angular-cookies.js"></script>
-    <script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../bower_components/js-xlsx/dist/xlsx.full.min.js"></script>
-    <script type="text/javascript" src="../build/go.grid.js"></script>
-    <script type="text/javascript" src="FileSaver.js"></script>
-    <script type="text/javascript" src="sample.js"></script>
+  <meta charset="utf-8">
+  <title>GO.GRID Example</title>
+  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <link rel="stylesheet" href="../build/go.grid.css" type="text/css" />
+  <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="../bower_components/jquery-ui/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="../bower_components/angular/angular.js"></script>
+  <script type="text/javascript" src="../bower_components/angularLocalStorage/src/angularLocalStorage.js"></script>
+  <script type="text/javascript" src="../bower_components/angular-cookies/angular-cookies.js"></script>
+  <script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../bower_components/momentjs/min/moment-with-locales.min.js"></script>
+  <script type="text/javascript" src="../bower_components/js-xlsx/dist/xlsx.full.min.js"></script>
+  <script type="text/javascript" src="../build/go.grid.js"></script>
+  <script type="text/javascript" src="FileSaver.js"></script>
+  <script type="text/javascript" src="sample.js"></script>
 </head>
+
 <body ng-controller="SampleController">
-<div class="container">
+  <div class="container">
     <div class="row">
-        <div class="col-md-12" style="height: 500px">
+      <div class="col-md-12" style="height: 500px">
 
-            <div go-grid data-source="items" infinite on-select="select()" name="demo">
+        <div go-grid data-source="items" infinite on-select="select()" name="demo">
 
-                <filters>
-                    <search-filter fields="field1,field2,field3,field4,field5,field6,field7,field9"
-                                   name="query"></search-filter>
-                </filters>
+          <filters>
+            <search-filter fields="field1,field2,field3,field4,field5,field6,field7,field9" name="query"></search-filter>
+          </filters>
 
-                <columns>
-                    <checkbox-column width="40" field="selected"></checkbox-column>
-                    <column width="40" name="id" header="ID" sort resize right>
-                        <a ng-href="#/{{item.id}}" class="office-thumbail">{{ item.id }}</a>
-                    </column>
-                    <column width="120" name="field1" header="Field 1" sort resize>
-                        <strong>{{ item.field1 }} {{ item.field2 }}</strong>
-                    </column>
-                    <column width="120" name="field2" header="Field 2" sort resize>
-                        <span class="label label-info">{{item.field6}}</span>
-                    </column>
-                    <column width="120" name="field3" header="Field 3" sort resize></column>
-                    <column width="120" name="field4" header="Field 4" sort resize></column>
-                    <column width="120" name="field5" header="Field 5" sort resize></column>
-                    <column width="120" name="field6" header="Field 6" sort resize></column>
-                    <column width="120" name="field9" header="Field 7" sort resize right></column>
-                    <column width="120" name="field7" header="Field 8" sort resize></column>
-                    <column width="120" name="field12" header="Field 11" sort resize></column>
+          <columns>
+            <checkbox-column width="40" field="selected"></checkbox-column>
+            <column width="40" name="id" header="ID" sort resize right>
+              <a ng-href="#/{{item.id}}" class="office-thumbail">{{ item.id }}</a>
+            </column>
+            <column width="120" name="field1" header="Field 1" sort resize>
+              <strong>{{ item.field1 }} {{ item.field2 }}</strong>
+            </column>
+            <column width="120" name="field2" header="Field 2" sort resize>
+              <span class="label label-info">{{item.field6}}</span>
+            </column>
+            <column width="120" name="field3" header="Field 3" sort resize></column>
+            <column width="120" name="field4" header="Field 4" sort resize></column>
+            <column width="120" name="field5" header="Field 5" sort resize></column>
+            <column width="120" name="field6" header="Field 6" sort resize></column>
+            <column width="120" name="field9" header="Field 7" sort resize right></column>
+            <column width="120" name="field7" header="Field 8" sort resize></column>
+            <column width="120" name="field12" header="Field 11" sort resize></column>
 
-                </columns>
-            </div>
+          </columns>
         </div>
+      </div>
     </div>
 
-</div>
+  </div>
 </body>
+
 </html>

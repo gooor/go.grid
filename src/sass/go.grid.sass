@@ -12,7 +12,7 @@ $brand-primary: #428bca !default
 
   & .go-grid-filters
     border-bottom: 1px solid $border-color
-    padding: 4px 4px
+    padding: 4px 85px 4px 4px
     min-height: 36px
     position: relative
     & .go-grid-column-list
@@ -25,21 +25,30 @@ $brand-primary: #428bca !default
     overflow: hidden
     & th
       border-bottom: 2px solid #444
+      border-left: 1px solid #ddd
       position: relative
+      &.group
+        border-bottom: 1px solid #ddd
+      & > div
+        & > span.header-label
+          padding: 4px 0px 4px 6px
+          margin-right: 24px
+          display: block
+
+        & .sorting-arrows
+          position: absolute
+          top: 50%
+          bottom: 0
+          right: 6px
+          line-height: 1px
+          padding: 0
       &.sortable
         cursor: pointer
         & > div
           & > span.header-label
-            padding: 4px 0px 4px 6px
-            margin-right: 24px
-            display: block
-          & .sorting-arrows
-            position: absolute
-            top: 50%
-            bottom: 0
-            right: 10px
-            line-height: 1px
-            padding: 0
+            margin-right: 16px
+            overflow: hidden
+            text-overflow: ellipsis
       & > div
         overflow: hidden
 
@@ -51,18 +60,20 @@ $brand-primary: #428bca !default
           top: 0
           bottom: 0
           right: 0
-          width: 10px
+          width: 6px
+          height: auto
           overflow: hidden
+          border: none
           margin: 0
           cursor: e-resize
           &:after
             top: 0
-            left: 50%
+            right: 0
             bottom: 0
             width: 2px
             content: ''
             display: block
-            border-left: 1px solid #ddd
+            //border-left: 1px solid #ddd
             position: absolute
 
   & .go-grid-table-body
@@ -76,7 +87,7 @@ $brand-primary: #428bca !default
 
     & tr
 
-      &:nth-child(odd)
+      &:nth-child(even)
         & td
           background: #f5f5f5
 
@@ -90,11 +101,14 @@ $brand-primary: #428bca !default
 
       & td
         border-bottom: 1px solid $border-color
-        padding: 0
+        padding: 0 1px 0 0
+        & .checkbox
+          margin: 0
         & > div
           overflow: hidden
           white-space: nowrap
           padding: 4px 6px
+
       &.selected //, &:nth-child(odd).selected
         color: #fff
         & td

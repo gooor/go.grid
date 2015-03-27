@@ -18,7 +18,6 @@ module.exports = function (grunt) {
         connect: {
             options: {
                 port: 9000,
-                // Change this to '0.0.0.0' to access the server from outside.
                 hostname: 'localhost',
                 livereload: 35729
             },
@@ -29,8 +28,6 @@ module.exports = function (grunt) {
                         if (!Array.isArray(options.base)) {
                             options.base = [options.base];
                         }
-
-                        // Setup the proxy
                         var middlewares = [
                             require('grunt-connect-proxy/lib/utils').proxyRequest,
                             connect.static('.tmp'),
@@ -40,11 +37,8 @@ module.exports = function (grunt) {
                             ),
                             connect.static(appConfig.app)
                         ];
-
-                        // Make directory browse-able.
                         var directory = options.directory || options.base[options.base.length - 1];
                         middlewares.push(connect.directory(directory));
-
                         return middlewares;
                     }
                 }
@@ -56,9 +50,9 @@ module.exports = function (grunt) {
                     livereload: '<%= connect.options.livereload %>'
                 },
                 files: [
-                    'css/**/*.css',
-                    'js/**/*.js',
-                    'index.html'
+                    'build/**/*.css',
+                    'build/**/*.js',
+                    'example/*'
                 ]
             },
             sass: {
@@ -98,7 +92,14 @@ module.exports = function (grunt) {
             build: {
                 files: {
                     "build/go.grid.js": [
-                        'src/coffee/go.grid.coffee'
+                        'src/coffee/factories/*.coffee',
+                        'src/coffee/controller.coffee',
+                        'src/coffee/filters.coffee',
+                        'src/coffee/templates.coffee',
+                        'src/coffee/column.def.coffee',
+                        'src/coffee/scroll.table.coffee',
+                        'src/coffee/xls.exporter.coffee',
+                        'src/coffee/go.grid.coffee',
                     ]
                 }
             }
