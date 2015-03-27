@@ -47,7 +47,7 @@ Build task wil only build
 
 
 # Dependencies
-- angular: "~1.2.24",
+- angular: "~1.3.15",
 - bootstrap: "~3.2.0",
 - angularLocalStorage: "~0.1.7",
 - angular-cookies: "~1.2.24",
