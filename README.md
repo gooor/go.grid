@@ -65,5 +65,5 @@ Very important thing - HOW TO USE IT? - for start see example/index.html
   Project is splited into multiple coffee files
   Fixes in filters
   Renamed to goGrid
-  0.1.0
+- 0.1.0
   Init
