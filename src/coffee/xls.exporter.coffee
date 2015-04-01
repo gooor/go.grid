@@ -1,4 +1,4 @@
-angular.module('goGridXLSExporter',[]).service 'XLSExport', ->
+angular.module('goGridXLSExporter',[]).service 'XLSExport', ['$interpolate',($interpolate)->
   class XLSExport
     constructor: (file_name, columns, data)->
       @file_name = file_name
@@ -94,3 +94,4 @@ angular.module('goGridXLSExporter',[]).service 'XLSExport', ->
         saveAs(new Blob([t],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}), "#{moment().format("YYYYMMDDHHmmss")}-#{@file_name}.xlsx")
       , 500
       true
+]

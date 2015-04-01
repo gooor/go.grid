@@ -222,6 +222,9 @@
           this.xls_export = new XLSExport(attrs.name, scope.columns, scope.data);
           this.scope.exportCSV = (function(_this) {
             return function() {
+              _this.xls_export.data = _this.scope.source.data;
+              _this.xls_export.columns = _this.scope.columns;
+              _this.xls_export.file_name = attrs.name;
               return _this.xls_export.doExport(_this.scope, $timeout);
             };
           })(this);
@@ -803,135 +806,137 @@
 }).call(this);
 
 (function() {
-  angular.module('goGridXLSExporter', []).service('XLSExport', function() {
-    var XLSExport;
-    return XLSExport = (function() {
-      function XLSExport(file_name, columns, data) {
-        this.file_name = file_name;
-        this.columns = columns;
-        this.data = data;
-      }
+  angular.module('goGridXLSExporter', []).service('XLSExport', [
+    '$interpolate', function($interpolate) {
+      var XLSExport;
+      return XLSExport = (function() {
+        function XLSExport(file_name, columns, data) {
+          this.file_name = file_name;
+          this.columns = columns;
+          this.data = data;
+        }
 
-      XLSExport.prototype.doExport = function() {
-        var cell, cell_ref, col, col_ref, column, column_index, columns, i, item, max_col, row_index, s2ab, t, wb, wbout, ws, ws_name, _base, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref, _ref1;
-        ws = {};
-        columns = [];
-        _ref = this.columns;
-        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
-          column = _ref[i];
-          if (column.visible && column.type !== 'checkbox') {
-            columns.push({
-              header: column.header,
-              index: i,
-              field: column.name,
-              template: column.template,
-              width: column.width
-            });
-          }
-        }
-        column_index = 0;
-        col_ref = [];
-        for (_j = 0, _len1 = columns.length; _j < _len1; _j++) {
-          col = columns[_j];
-          cell_ref = XLSX.utils.encode_cell({
-            c: column_index,
-            r: 0
-          });
-          cell = {
-            v: col.header,
-            t: 's'
-          };
-          ws[cell_ref] = cell;
-          column_index++;
-          col_ref.push({
-            wpx: col.width
-          });
-        }
-        ws['!cols'] = col_ref;
-        row_index = 1;
-        max_col = 0;
-        (_base = XLSX.SSF._table)[50] || (_base[50] = 'YYYY/MM/DD');
-        _ref1 = this.data;
-        for (i = _k = 0, _len2 = _ref1.length; _k < _len2; i = ++_k) {
-          item = _ref1[i];
-          column_index = 0;
-          for (_l = 0, _len3 = columns.length; _l < _len3; _l++) {
-            col = columns[_l];
-            cell_ref = XLSX.utils.encode_cell({
-              c: column_index,
-              r: row_index
-            });
-            cell = {
-              v: item[col.field] || '',
-              t: 's'
-            };
-            if ($.isNumeric(cell.v)) {
-              cell.t = 'n';
-            } else if (moment(item[col.field]).isValid() && (item[col.field] != null)) {
-              cell.t = 'n';
-              cell.z = XLSX.SSF._table[50];
-              cell.v = (moment(item[col.field]).toDate() - new Date(Date.UTC(1899, 11, 30))) / (24 * 60 * 60 * 1000);
-            }
-            if (col.template && cell.t === 's') {
-              cell.v = $interpolate(col.template)({
-                item: item
-              }).replace(/(<([^>]+)>)/ig, "").trim();
-              cell.h = $interpolate(col.template)({
-                item: item
+        XLSExport.prototype.doExport = function() {
+          var cell, cell_ref, col, col_ref, column, column_index, columns, i, item, max_col, row_index, s2ab, t, wb, wbout, ws, ws_name, _base, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref, _ref1;
+          ws = {};
+          columns = [];
+          _ref = this.columns;
+          for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+            column = _ref[i];
+            if (column.visible && column.type !== 'checkbox') {
+              columns.push({
+                header: column.header,
+                index: i,
+                field: column.name,
+                template: column.template,
+                width: column.width
               });
             }
+          }
+          column_index = 0;
+          col_ref = [];
+          for (_j = 0, _len1 = columns.length; _j < _len1; _j++) {
+            col = columns[_j];
+            cell_ref = XLSX.utils.encode_cell({
+              c: column_index,
+              r: 0
+            });
+            cell = {
+              v: col.header,
+              t: 's'
+            };
             ws[cell_ref] = cell;
-            if (column_index > max_col) {
-              max_col = column_index;
-            }
             column_index++;
+            col_ref.push({
+              wpx: col.width
+            });
           }
-          row_index++;
-        }
-        ws['!ref'] = XLSX.utils.encode_range({
-          s: {
-            c: 0,
-            r: 0
-          },
-          e: {
-            c: max_col,
-            r: row_index - 1
+          ws['!cols'] = col_ref;
+          row_index = 1;
+          max_col = 0;
+          (_base = XLSX.SSF._table)[50] || (_base[50] = 'YYYY/MM/DD');
+          _ref1 = this.data;
+          for (i = _k = 0, _len2 = _ref1.length; _k < _len2; i = ++_k) {
+            item = _ref1[i];
+            column_index = 0;
+            for (_l = 0, _len3 = columns.length; _l < _len3; _l++) {
+              col = columns[_l];
+              cell_ref = XLSX.utils.encode_cell({
+                c: column_index,
+                r: row_index
+              });
+              cell = {
+                v: item[col.field] || '',
+                t: 's'
+              };
+              if ($.isNumeric(cell.v)) {
+                cell.t = 'n';
+              } else if (moment(item[col.field]).isValid() && (item[col.field] != null)) {
+                cell.t = 'n';
+                cell.z = XLSX.SSF._table[50];
+                cell.v = (moment(item[col.field]).toDate() - new Date(Date.UTC(1899, 11, 30))) / (24 * 60 * 60 * 1000);
+              }
+              if (col.template && cell.t === 's') {
+                cell.v = $interpolate(col.template)({
+                  item: item
+                }).replace(/(<([^>]+)>)/ig, "").trim();
+                cell.h = $interpolate(col.template)({
+                  item: item
+                });
+              }
+              ws[cell_ref] = cell;
+              if (column_index > max_col) {
+                max_col = column_index;
+              }
+              column_index++;
+            }
+            row_index++;
           }
-        });
-        ws_name = 'export';
-        wb = {
-          SheetNames: [ws_name],
-          Sheets: {}
+          ws['!ref'] = XLSX.utils.encode_range({
+            s: {
+              c: 0,
+              r: 0
+            },
+            e: {
+              c: max_col,
+              r: row_index - 1
+            }
+          });
+          ws_name = 'export';
+          wb = {
+            SheetNames: [ws_name],
+            Sheets: {}
+          };
+          wb.Sheets[ws_name] = ws;
+          wbout = XLSX.write(wb, {
+            bookType: 'xlsx',
+            bookSST: true,
+            type: 'binary'
+          });
+          s2ab = function(s) {
+            var buf, char, view, _len4, _m;
+            buf = new ArrayBuffer(s.length);
+            view = new Uint8Array(buf);
+            for (i = _m = 0, _len4 = s.length; _m < _len4; i = ++_m) {
+              char = s[i];
+              view[i] = s.charCodeAt(i) & 0xFF;
+            }
+            return buf;
+          };
+          t = s2ab(wbout);
+          setTimeout(function() {
+            return saveAs(new Blob([t], {
+              type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            }), "" + (moment().format("YYYYMMDDHHmmss")) + "-" + this.file_name + ".xlsx");
+          }, 500);
+          return true;
         };
-        wb.Sheets[ws_name] = ws;
-        wbout = XLSX.write(wb, {
-          bookType: 'xlsx',
-          bookSST: true,
-          type: 'binary'
-        });
-        s2ab = function(s) {
-          var buf, char, view, _len4, _m;
-          buf = new ArrayBuffer(s.length);
-          view = new Uint8Array(buf);
-          for (i = _m = 0, _len4 = s.length; _m < _len4; i = ++_m) {
-            char = s[i];
-            view[i] = s.charCodeAt(i) & 0xFF;
-          }
-          return buf;
-        };
-        t = s2ab(wbout);
-        setTimeout(function() {
-          return saveAs(new Blob([t], {
-            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-          }), "" + (moment().format("YYYYMMDDHHmmss")) + "-" + this.file_name + ".xlsx");
-        }, 500);
-        return true;
-      };
 
-      return XLSExport;
+        return XLSExport;
 
-    })();
-  });
+      })();
+    }
+  ]);
 
 }).call(this);
 

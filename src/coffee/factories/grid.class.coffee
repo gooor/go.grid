@@ -130,5 +130,8 @@ angular.module('goGridClass',['goGridXLSExporter']).factory('gridClass', ['XLSEx
       @xls_export = new XLSExport(attrs.name, scope.columns, scope.data)
 
       @scope.exportCSV = =>
+        @xls_export.data = @scope.source.data
+        @xls_export.columns = @scope.columns
+        @xls_export.file_name = attrs.name
         @xls_export.doExport(@scope, $timeout)
 ])
