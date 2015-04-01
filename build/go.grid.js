@@ -499,7 +499,7 @@
   angular.module('goGridTemplates', []).run([
     '$templateCache', function($templateCache) {
       $templateCache.put('grid_column.html', "<div ng-style=\"{width: column.width}\">" + "<span class=\"header-label\">{{ ::column.header }}</span>" + "<span ng-if=\"::column.sortable\" class=\"sorting-arrows fa\" ng-class=\"{'fa-unsorted': !viewParams.sort_columns[column.name], 'fa-sort-up': viewParams.sort_columns[column.name] == 1, 'fa-sort-desc': viewParams.sort_columns[column.name] == -1}\">" + "</span>" + "</div>");
-      $templateCache.put('filters_container.html', "<div class=\"go-grid-column-list\">" + "<button class=\"btn btn-default\" type=\"button\" data-toggle=\"dropdown\">" + "<span class=\"fa fa-cogs\"></span>" + "</button>" + "<ul class=\"dropdown-menu pull-right\" role=\"menu\">" + "<li><a href=\"javascript:void(0)\" ng-click=\"resetStorage()\">Reset ustawień</a></li>" + "<li class=\"dropdown-header\"><strong>Kolumny</strong></li>" + "<li ng-repeat=\"(index, column) in columns\">" + "<column-config>" + "</column-config>" + "</li>" + "</ul> " + '<button class="btn btn-default" ng-click="exportCSV()"><span class="fa fa-cloud-download"></span></button>' + '&nbsp;' + '<button class="btn btn-default" ng-click="refresh()" ng-if="refresh"><span class="fa fa-refresh"></span></button>' + "</div>");
+      $templateCache.put('filters_container.html', "<div class=\"go-grid-column-list\">" + "<button class=\"btn btn-default\" type=\"button\" data-toggle=\"dropdown\">" + "<span class=\"fa fa-cogs\"></span>" + "</button>" + "<ul class=\"dropdown-menu pull-right\" role=\"menu\">" + "<li><a href=\"javascript:void(0)\" ng-click=\"resetStorage()\">Reset ustawień</a></li>" + "<li class=\"dropdown-header\"><strong>Kolumny</strong></li>" + "<li ng-repeat=\"(index, column) in columns\">" + "<column-config>" + "</column-config>" + "</li>" + "</ul> " + '<button class="btn btn-default" ng-click="exportCSV()"><span class="fa fa-cloud-download"></span></button>' + '&nbsp;' + '<button class="btn btn-default" ng-click="refresh()" ng-if="refresh "><span class="fa fa-refresh"></span></button>' + "</div>");
       return $templateCache.put('grid_base.html', "<div class=\"go-grid-table\">" + "<div class=\"go-grid-filters form-inline\" ng-if=\"::viewParams.filtersVisible\" filters-container>" + "</div>" + "<div class=\"go-grid-table-header\">" + "<table>" + "<thead>" + '<tr>' + '<th column-header column="column" ng-repeat="column in columnGroups" colspan="{{column.span}}" rowspan="{{column.type == \'group\' ? 1 : 2}}" ng-class="{group: column.type == \'group\'}"></th>' + "<th style=\"width: 100%; min-width: 50px\" rowspan=\"2\"></th>" + '</tr>' + "<tr>" + "<th column-header ng-repeat=\"column in columnsGroupped\" column=\"column\"></th>" + "</tr>" + "</thead>" + "</table>" + "</div>" + "<div class=\"go-grid-table-body\" scroll-table>" + "<div>" + "<table>" + "<tbody>" + "<tr ng-repeat=\"(row_index,item) in truncated track by $index\" ng-class=\"rowClass(item)\">" + "<td ng-repeat=\"column in columns\" go-cell ng-if=\"column.visible\" ngs-click=\"highlight(item)\"" + " ng-style=\"cellStyle(item, column)\">" + "</td>" + "<td style=\"width: 100%\" ng-style=\"emptyCellStyle(item)\"></td>" + "</tr>" + "</tbody>" + "</table>" + "</div>" + "</div>" + "</div>" + "\n");
     }
   ]);
@@ -680,17 +680,19 @@
         template: ['<div class="column-config">', '<a class="checkbox-link" href="javascript:void(0)" ng-click="column.visible = !column.visible">', ' <span class="fa fw" ng-class="{\'fa-check-square-o\': column.visible, \'fa-square-o\': !column.visible}" ng-click="column.visible = !column.visible">', '</span>', ' {{column.header }}', '</a>', "<div class=\"sort-icons\">", "<span class=\"fa fa-chevron-up\" ng-click=\"moveColumnUp()\"></span><span class=\"fa fa-chevron-down\" ng-click=\"moveColumnDown()\"></span>", '</div>', '</div>'].join(''),
         link: function(scope, element) {
           scope.moveColumnUp = function() {
-            var index;
+            var el, index;
             index = scope.columns.indexOf(scope.column);
             if (index >= 0) {
-              return scope.columns.moveUp(index);
+              el = scope.columns.splice(index, 1)[0];
+              return scope.columns.splice(index - 1, 0, el);
             }
           };
           scope.moveColumnDown = function() {
-            var index;
+            var el, index;
             index = scope.columns.indexOf(scope.column);
             if (index >= 0) {
-              return scope.columns.moveDown(index);
+              el = scope.columns.splice(index, 1)[0];
+              return scope.columns.splice(index + 1, 0, el);
             }
           };
           $(element).find('a').on('click', function(e) {

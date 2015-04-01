@@ -133,12 +133,16 @@ angular.module('goGridColumns',[]).directive('columns', ['$parse','$timeout',($p
     scope.moveColumnUp = ->
       index = scope.columns.indexOf(scope.column)
       if index >= 0
-        scope.columns.moveUp(index)
+        [el] = scope.columns.splice(index, 1)
+        scope.columns.splice(index-1, 0, el)
+        # scope.columns.moveUp(index)
 
     scope.moveColumnDown = ->
       index = scope.columns.indexOf(scope.column)
       if index >= 0
-        scope.columns.moveDown(index)
+        [el] = scope.columns.splice(index, 1)
+        scope.columns.splice(index+1, 0, el)
+        # scope.columns.moveDown(index)
 
     $(element).find('a').on 'click', (e)->
       e.preventDefault()
