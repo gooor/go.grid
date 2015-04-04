@@ -65,15 +65,15 @@ angular.module('goGridControllers',['goGridDiacritics']).controller('GoGridContr
   $scope.sort = ->
     list = $scope.filtered
     if $scope.viewParams.sort_by.length and list.length > 1
+      # console.log $scope.viewParams.sort_by[0].direction
       sortBy = $scope.viewParams.sort_by[0].column
       field = list[0][sortBy]
       if $.isNumeric(field)
-        console.log field
         toStringFn = ->
-          ('000000000000000000000000' + @[sortBy].toFixed(20)).substr(-25)
+          ('000000000000000000000000000000' + @[sortBy].toFixed(20)).substr(-51)
       else
         toStringFn = ->
-          removeDiacritics(@[sortBy]||'') #.removeDiacritics()
+          removeDiacritics(@[sortBy]||'').toLowerCase() #.removeDiacritics()
 
       item.toString = toStringFn for item in list
       list = list.sort()

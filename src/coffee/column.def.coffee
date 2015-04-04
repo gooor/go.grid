@@ -85,10 +85,10 @@ angular.module('goGridColumns',[]).directive('columns', ['$parse','$timeout',($p
         sort_by = scope.column.sort || scope.column.name
         $(element).on 'click', (e)->
           scope.$apply ->
-            existing = scope.viewParams.sort_by.filter (i)->
+            [existing] = scope.viewParams.sort_by.filter (i)->
               i.column is sort_by
             if existing
-              direction = existing.direction
+              direction = parseInt(existing.direction) || 1
             else
               direction = -1
 
@@ -100,6 +100,7 @@ angular.module('goGridColumns',[]).directive('columns', ['$parse','$timeout',($p
                   column: sort_by
                   direction: direction*(-1)
             else
+              # console.log direction
               scope.viewParams.sort_by = []
               scope.viewParams.sort_by[0] ||= {}
               scope.viewParams.sort_by[0].column = sort_by

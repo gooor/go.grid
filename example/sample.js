@@ -18,7 +18,7 @@ angular.module('sampleApp', ['goGrid','angularLocalStorage'])
 
     var l = string.length - 1;
 
-    for (var i = 1; i <= 10000; i++) {
+    for (var i = 1; i <= 100000; i++) {
 
       i1 = Math.round(Math.random() * l)
       i2 = Math.round(Math.random() * l)

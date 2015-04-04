@@ -2,7 +2,7 @@ angular.module('goGridTemplates',[]).run(['$templateCache', ($templateCache)->
   $templateCache.put('grid_column.html',
     "<div ng-style=\"{width: column.width}\">" +
     "<span class=\"header-label\">{{ ::column.header }}</span>" +
-    "<span ng-if=\"::column.sortable\" class=\"sorting-arrows fa\" ng-class=\"{'fa-unsorted': !viewParams.sort_columns[column.name], 'fa-sort-up': viewParams.sort_columns[column.name] == 1, 'fa-sort-desc': viewParams.sort_columns[column.name] == -1}\">"+
+    "<span ng-if=\"::column.sortable\" class=\"sorting-arrows fa\" ng-class=\"{'fa-unsorted': viewParams.sort_by[0].column != column.name, 'fa-sort-up': viewParams.sort_by[0].column == column.name && viewParams.sort_by[0].direction == 1, 'fa-sort-desc': viewParams.sort_by[0].column == column.name && viewParams.sort_by[0].direction == -1}\">"+
     "</span>" +
     "</div>"
   )

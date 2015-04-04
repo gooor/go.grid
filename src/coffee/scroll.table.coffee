@@ -5,7 +5,7 @@ angular.module('goGridScroll',[]).directive('scrollTable',['$timeout',($timeout)
     header_el = element.parent().find('.go-grid-table-header')
 
     calculatePageSize = ->
-      row_height = ($(element).find('td ').height()||29) + 1
+      row_height = ($(element).find('td ').height()||30) + 3
       scope.viewParams.pageSize =
         Math.round($(element).height()/row_height)
 
